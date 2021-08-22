@@ -1,0 +1,25 @@
+body {
+	font: 14px "Century Gothic", Futura, sans-serif;
+	margin: 20px;
+	white-space: pre-wrap;
+}
+table {
+	width: 50rem;
+}
+tr {
+	height: 2rem;
+}
+tr:not(.totals):nth-of-type(odd) {
+	background-color: #fafafa;
+}
+th {
+	text-align: left;
+	padding-left: 1rem;
+}
+.totals {
+	background-color: #f2f4f6;
+	font-size: 1.2rem;
+}
+td {
+	padding-left: 2rem;
+}

@@ -1,0 +1,80 @@
+@keyframes electricity {
+  0% {
+    opacity: 1;
+  }
+  5% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0;
+  }
+  18% {
+    opacity: 0;
+  }
+  21% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.electrical.animated {
+  animation: electricity 1.5s 0s infinite linear; 
+}
+
+@keyframes unlock {
+  0% {
+    transform: rotate(0) translateX(-28px) translateY(-18px);
+  }
+  50% {
+    transform: rotate(0) translateX(-28px) translateY(-18px);
+  }
+  100% {
+    transform: rotate(90deg) translateX(-28px) translateY(-18px);    
+  }
+}
+
+.lock.animated {
+  animation: unlock 2s 0s infinite linear alternate;
+  transform-origin: 48% 60%;
+}
+
+
+
+@keyframes waterspray {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(-20px) translateY(-5px);
+  }
+  50% {
+    transform: translateX(-40px) translateY(0px);
+  }
+  75% {
+    transform: translateX(-60px) translateY(5px);
+  }
+  100% {
+    transform: translateX(-80px) translateY(10px);
+    opacity: 0;
+  }
+}
+
+
+svg .drop.animated {
+  animation: waterspray 1s 0s linear infinite;
+}
+	

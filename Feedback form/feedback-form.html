@@ -1,0 +1,464 @@
+<style>
+	.floating {
+		position: fixed;
+		z-index: 99;
+	}
+	#feedback-form-section.floating {
+		bottom: 1rem;
+		right: 1rem;
+		background-color: rgba(255,255,255,0.9);
+		width: 31rem;
+		border-radius: 5px;
+	}
+	#feedback-form-section h2 {
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+		display: inline-block;
+	}
+	#feedback-form-section.floating h2 {
+		margin-bottom: 0;
+	}
+	#feedback-form h3 {
+		font-size: 1.2rem;
+	}	
+	#feedback-form input[type="checkbox"] {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+	#feedback-form input[type="checkbox"]:focus + label::after, #feedback-form input[type="checkbox"]:hover + label::after {
+		background-color: #454849;
+		color: rgba(255,255,255,1);
+	}
+	#feedback-form label {
+		border: 1px solid #454849;
+		display: inline-block;
+		padding: 0.2rem 2rem 0.2rem 1rem;
+		border-radius: 15px;
+		margin-right: 1rem;
+		position: relative;
+		overflow: hidden;
+		transition: color 600ms ease-in;
+	}
+	#feedback-form-section.floating label {
+		margin-bottom: 0.5rem;
+	}
+	#feedback-form label::after {
+		content: '\E00B';
+		color: rgba(255,255,255,0);
+		font-family: racv;
+		font-size: 0.7rem;
+		display: block;
+		position: absolute;
+		right: 6px;
+		top: 0.4rem;
+		border: 1px solid #454849;
+		border-radius: 50%;
+		width: 20px;
+		height: 20px;
+		text-align: center;
+		z-index: 2;
+		transition: color 300ms ease-in, background-color 300ms ease-in;
+	}
+	#feedback-form input[type="checkbox"]:checked + label {
+		color: #fff;
+	}
+	#feedback-form input[type="checkbox"]:checked + label::after {
+		color: rgba(255,255,255,1);
+	}
+	#feedback-form label::before {
+		content: '';
+		position: absolute;
+		border-radius: 2rem;
+		transform: scale(0);
+		transition: transform 300ms ease-in;
+		background-color: #454849;
+		right: -1rem;
+		top: -1rem;
+		width: 4rem;
+		height: 4rem;
+		z-index: 1;
+	}
+	#feedback-form input[type="checkbox"]:checked + label::before {
+		transform: scale(4);
+	}
+	#feedback-form label span {
+		position: relative;
+		z-index: 2;
+	}
+	#feedback-form {
+		overflow: hidden;
+		position: relative;
+		display: flex;
+		scroll-snap-type: x mandatory;
+	}
+	#feedback-form .form-slide {
+		width: 100%;
+		position: relative;
+		flex: 0 0 100%;
+		display: flex;
+		flex-direction: column;
+		scroll-snap-align: start;
+	}
+	#feedback-form .c-tile__title {
+		width: 100%;
+		display: inline-block;
+	}
+	#feedback-form-section .o-grid {
+		position: relative;
+		height: 13rem;
+	}
+	.feedback-options {
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+		display: flex;
+	}
+	#feedback-form-section.floating .feedback-options {
+		margin-bottom: 0;
+		margin-top: 0;
+		flex-wrap: wrap;
+	}
+	@keyframes heartbeat {
+		0% {transform: scale(1);}
+		30% {transform: scale(1.25);}
+		40% {transform: scale(1);}
+		70% {transform: scale(1.25);}
+		80% {transform: scale(1);}
+		100% {transform: scale(1);}
+	}
+	#feedback-form svg {
+		fill: #454849;
+		width: 70px;
+	}
+	#feedback-form svg.animate {
+		animation: heartbeat 1s ease-in 0s 2;
+	}
+	#thankyou h3 {
+		margin-bottom: 0;
+	}
+
+	 /* The switch - the box around the slider */
+	.switch {
+		position: relative;
+		display: inline-block;
+		width: 50px;
+		height: 29px;
+	}
+	#form-changer {
+		float: right;
+		margin-top: 1rem;
+	}
+	/* Hide default HTML checkbox */
+	.switch input {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+	/* The slider */
+	.slider {
+		position: absolute;
+		cursor: pointer;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #ccc;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
+
+	.slider:before {
+		position: absolute;
+		content: "";
+		height: 21px;
+		width: 21px;
+		left: 4px;
+		bottom: 4px;
+		background-color: white;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
+
+	input:checked + .slider {
+		background-color: #2196F3;
+	}
+
+	input:focus + .slider {
+		box-shadow: 0 0 1px #2196F3;
+	}
+
+	input:checked + .slider:before {
+		-webkit-transform: translateX(21px);
+		-ms-transform: translateX(21px);
+		transform: translateX(21px);
+	}
+
+	/* Rounded sliders */
+	.slider.round {
+		border-radius: 15px;
+	}
+
+	.slider.round:before {
+		border-radius: 50%;
+	}
+	
+	.exit-intent-popup {
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		z-index: 999;
+		background: rgba(33, 33, 33, 0.8);
+		transform: translateY(60%) scale(0);
+		transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+ 	}
+
+	.exit-intent-popup.visible {
+		transform: translateY(0) scale(1);
+	}
+
+	.newsletter {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: #fff;
+		padding: 2rem 3rem;
+		border-radius: 5px;
+		max-width: 550px;
+	}
+	.exit-intent-popup select {
+		width: 100%;
+		padding: 0.5rem 1rem;
+		margin-bottom: 1rem;
+		display: block;
+		box-sizing: border-box;
+		border: 1px solid #aaa;
+		box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+		border-radius: 5px;
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		appearance: none;
+		background-color: #fff;
+		background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'), linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+		background-repeat: no-repeat, repeat;
+		background-position: right .7em top 50%, 0 0;
+		background-size: .65em auto, 100%;
+	}
+</style>
+<section class="" id="feedback-form-section">
+	<div class="o-grid">
+		<h2 class="c-tile__title">Feedback form (Step <span id="step">1</span> of 3)</h2>
+		<div id="form-changer">
+			<label class="switch">
+				<input type="checkbox" id="style-toggle">
+				<span class="slider round"></span>
+			  </label>
+		</div>
+		<div id="feedback-form" class="feedback-form">
+			<div id="intro-question" class="form-slide">
+				<h3>Did you find the page useful?</h3>
+				<div>
+					<a role="button" href="#more-info-yes" class="c-btn c-btn--ghost-black" id="feedback-yes" data-event="site interaction" data-type="button" data-location="target-feebdack-form" data-details="yes" data-description="Did you find the page useful?">Yes</a>
+					<a role="button" href="#more-info-no" class="c-btn c-btn--ghost-black" id="feedback-no" data-event="site interaction" data-type="button" data-location="target-feebdack-form" data-details="no" data-description="Did you find the page useful?">No</a>
+				</div>
+			</div>
+			<div id="more-info-yes" class="form-slide">
+				<h3 class="c-tile__title">What did you find useful?</h3>
+				<div class="feedback-options">
+					<input type="checkbox" id="input1-yes" name="" value="yes_value_1"><label for="input1-yes"><span>Input 1</span></label>
+					<input type="checkbox" id="input2-yes" name="" value="yes_value_2"><label for="input2-yes"><span>Input 2</span></label>
+					<input type="checkbox" id="input3-yes" name="" value="yes_value_3"><label for="input3-yes"><span>Input 3</span></label>
+					<input type="checkbox" id="input4-yes" name="" value="yes_value_4"><label for="input4-yes"><span>Input 4</span></label>
+					<input type="checkbox" id="input5-yes" name="" value="yes_value_5"><label for="input5-yes"><span>Input 5</span></label>
+					<input type="checkbox" id="input6-yes" name="" value="yes_value_6"><label for="input6-yes"><span>Input 6</span></label>
+				</div>
+				<div>
+					<a role="button" href="#thankyou" class="c-btn c-btn--ghost-black" id="submit-yes-answers" data-event="site interaction" data-type="button" data-location="target-feebdack-form" data-details="" data-description="Selected yes answers">Submit</a>
+				</div>
+			</div>
+			<div id="more-info-no" class="form-slide">
+				<h3 class="c-tile__title">What didn't you like?</h3>
+				<div class="feedback-options">
+					<input type="checkbox" id="input1-no" name="" value="no_value_1"><label for="input1-no"><span>Input 1</span></label>
+					<input type="checkbox" id="input2-no" name="" value="no_value_2"><label for="input2-no"><span>Input 2</span></label>
+					<input type="checkbox" id="input3-no" name="" value="no_value_3"><label for="input3-no"><span>Input 3</span></label>
+					<input type="checkbox" id="input4-no" name="" value="no_value_4"><label for="input4-no"><span>Input 4</span></label>
+					<input type="checkbox" id="input5-no" name="" value="no_value_5"><label for="input5-no"><span>Input 5</span></label>
+					<input type="checkbox" id="input6-no" name="" value="no_value_6"><label for="input6-no"><span>Input 6</span></label>
+				</div>
+				<div>
+					<a role="button" href="#thankyou" class="c-btn c-btn--ghost-black" id="submit-no-answers" data-event="site interaction" data-type="button" data-location="target-feebdack-form" data-details="" data-description="Selected no answers">Submit</a>
+				</div>
+			</div>
+			<div id="thankyou" class="form-slide">
+				<h3 ckass="c-tile__title">Thank you for your feedback</h3>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M21.8 63.8c-7.4-8.6-11.1-16.3-11-22.7.1-5.8 2.4-11.1 6.3-15.1 4-4 9.3-6.3 15.1-6.3 6.2 0 12.1 2.7 16.1 7.3 4-4.6 9.9-7.3 16.1-7.3 5.8 0 11.1 2.3 15.1 6.3s6.3 9.3 6.3 15.1c.1 3.5-1 7.2-2.9 11.2-.4 1-1.6 1.3-2.6.9s-1.3-1.6-.9-2.6c1.7-3.5 2.6-6.6 2.6-9.5-.2-9.9-7.9-17.7-17.6-17.7-5.9 0-11.3 2.8-14.6 7.7-.3.5-1 .9-1.5.9-.7 0-1.2-.3-1.5-.9-3.3-4.8-8.7-7.7-14.6-7.7-9.7 0-17.5 7.7-17.6 17.7-.1 5.5 3.3 12.3 10 20.2.7.8.5 2-.2 2.7-.3.3-.8.4-1.2.4-.4.1-1-.2-1.4-.6zm39.7-32.9c0 1.1.9 2 2 2 5.3 0 9.6 4.2 9.7 9.7 0 1.1.9 1.8 2 1.8s1.8-.9 1.8-2c-.1-3.6-1.5-7-4-9.5S67.1 29 63.5 29c-1.2-.1-2 .8-2 1.9zm23.4 32.7c.5 2.9-2.5 5.6-9.7 8.5-3.5 1.4-7.7 2.7-12.4 3.9-4.8 4.2-9.1 7.7-12.4 10.3l-.9.7c-.3.3-.8.4-1.2.4-.4 0-.9-.1-1.2-.4l-.9-.7c-2.2-1.7-4.9-3.9-7.8-6.4-3.3.2-6.3.3-8.9.2-7.6-.2-11.4-1.7-11.9-4.7-.2-1.1.5-2.1 1.5-2.2 1-.2 2 .4 2.2 1.4.4.4 2.7 1.5 9.5 1.6 6 .1 13.5-.7 21.3-2 7.8-1.4 15.2-3.3 20.7-5.4 6.3-2.4 8-4.2 8.3-4.8-.1-1 .5-2 1.5-2.1 1.1-.1 2.1.7 2.3 1.7zM55 77.7c-.8.1-1.5.3-2.3.4-3 .5-6 1-8.9 1.3 1.6 1.4 3.2 2.6 4.6 3.7 1.9-1.5 4.2-3.3 6.6-5.4zm37.9-27.8c-.2-1.4-1.2-2.6-2.9-3.5-1-.4-2.1-.1-2.6.9-.4 1-.1 2.1.9 2.6.7.3.9.7.9.7 0 .4-1.6 2.8-9.9 6.1-7.1 2.8-16.6 5.3-26.9 7.2s-20.1 2.7-27.7 2.5c-8.8-.2-11.2-2-11.3-2.4 0 0 0-.5 1.3-1.5.8-.7.9-1.8.2-2.7-.7-.8-1.8-.9-2.7-.2-2.1 1.7-2.9 3.5-2.6 5.1.5 3.4 5.3 5.2 14.6 5.4 1.2 0 2.4.1 3.7 0 1.4 1.4 2.9 2.8 4.5 4.2.3.3.9.5 1.3.5.5 0 1-.2 1.4-.7.8-.8.7-2-.1-2.7-.5-.5-1.2-1.1-1.7-1.6 6.1-.3 12.9-1.2 20-2.4 6-1.1 11.6-2.4 16.8-3.8-.1.2-.3.3-.4.5-.8.8-.7 2 .1 2.7.8.8 2 .7 2.7-.1 1.6-1.7 3.2-3.6 4.6-5.2 1.5-.5 3-1.1 4.3-1.6 8.3-3.3 12.2-6.5 11.5-10z"/></svg>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="exit-intent-popup">
+	<div class="newsletter">
+		<h2>Was it something we said?</h2>
+		<label for="exit-reason" id="exit-label">I hope we didn't offend you in any way, but if we did, could you tell us how?</label>
+			<select name="exit-reason" id="exit-reason">
+				<option value="couldnt-find">I didn't find what I needed</option>
+				<option value="couldnt-navigate">I couldn't find how to navigate the site</option>
+				<option value="obnoxious-colours">I don't like the colours</option>
+				<option value="mistake-visit">I came here by mistake</option>
+				<option value="i-robot">I'm a bot</option>
+			</select>
+		<button id="" class="c-btn c-btn--secondary">Let us have it!</button>
+	</div>
+</div> 
+
+<script>
+	const counterElement = document.getElementById('step');
+	var counterValue = counterElement.textContent;
+	const elems = document.querySelectorAll('#feedback-form a');
+	const feedbackFrom = document.getElementById('feedback-form-section');
+	const styleChanger = document.getElementById('style-toggle');
+	const checkBoxes = document.querySelectorAll('#feedback-form input[type="checkbox"]');
+	const yesCheckboxes = document.querySelectorAll('#more-info-yes input[type="checkbox"]');
+	const noCheckboxes = document.querySelectorAll('#more-info-no input[type="checkbox"]');
+	const selectedAnswersSeparator = '-';
+	
+	// Counter to show which "screen" of the feedback form the user is on
+	for (const elem of elems) {
+		elem.addEventListener('click', event => {
+			counterValue++;
+			counterElement.textContent = counterValue;
+		})
+	}
+
+	// When a checkbox is checked/unchecked, add/remove its value from the data-details value of the submit button
+	for (const checkbox of checkBoxes) {
+		checkbox.addEventListener('change', event => {
+			var checkboxValue = checkbox.value;
+			if (checkbox.checked) {
+				addCheckboxValue(checkboxValue,checkboxValue.split('_',1)[0]);
+			}
+			else {
+				removeCheckboxValue(checkboxValue,checkboxValue.split('_',1)[0]);
+			}
+		})
+	}
+
+	// Animate the heart beat on the thank you form once the submit multi-choice answers is clicked
+	// TODO - need to facilitate keypress as well
+	const submitbtns = document.querySelectorAll('#submit-yes-answers, #submit-no-answers');
+	for (const btns of submitbtns) {
+		btns.addEventListener('click', event => {
+			document.querySelector('#feedback-form svg').classList.add('animate');
+		})
+	}
+	styleChanger.addEventListener('change', event => {
+		// access properties using this keyword
+		if ( styleChanger.checked ) {
+			// Returns true if checked
+			feedbackFrom.classList.add('floating');
+		} else {
+			// Returns false if not checked
+			feedbackFrom.classList.remove('floating');
+		}
+	})
+
+	// Exit intent trigger
+	const CookieService = {
+		setCookie(name, value, days) {
+			let expires = '';
+			if (days) {
+				const date = new Date();
+				date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+				expires = '; expires=' + date.toUTCString();
+			}
+			document.cookie = name + '=' + (value || '')  + expires + ';';
+		},
+		getCookie(name) {
+			const cookies = document.cookie.split(';');
+			for (const cookie of cookies) {
+				if (cookie.indexOf(name + '=') > -1) {
+					return cookie.split('=')[1];
+				}
+			}
+			return null;
+		}
+	}
+
+	// Wrap the setTimeout into an if statement
+	if (!CookieService.getCookie('exitIntentShown')) {
+		setTimeout(() => {
+			document.addEventListener('mouseout', mouseEvent);
+			document.addEventListener('keydown', exit);
+			document.addEventListener('click', exit);
+		}, 1_000);
+	}
+
+	const mouseEvent = e => {
+		const scrollBeforeShowExit = 400;
+		const shouldShowExitIntent = 
+			!e.toElement && 
+			!e.relatedTarget &&
+			e.clientY < 10 &&
+			window.scrollY > scrollBeforeShowExit;
+
+		if (shouldShowExitIntent) {
+			document.removeEventListener('mouseout', mouseEvent);
+			document.querySelector('.exit-intent-popup').classList.add('visible');
+			
+			// Set the cookie when the popup is shown to the user
+			CookieService.setCookie('exitIntentShown', true, 30);
+		}
+	};
+
+	const exit = e => {
+		const shouldExit =
+			[...e.target.classList].includes('exit-intent-popup') || // user clicks on mask
+			e.target.className === 'close' || // user clicks on the close icon
+			e.keyCode === 27; // user hits escape
+
+		if (shouldExit) {
+			document.querySelector('.exit-intent-popup').classList.remove('visible');
+		}
+	};
+
+	//assign selected checkbox values to submit data-details for data layer exposure
+	const addCheckboxValue = (checkboxValue, yesOrNo) => {
+		var submitAnswersButton = document.getElementById('submit-'+yesOrNo+'-answers');
+		if (submitAnswersButton.hasAttribute('data-details')) {
+			var submitAnswersDetails = submitAnswersButton.dataset.details;
+			//make sure the value being added isn't in there already, and add it with a hyphen if there is another value present
+			if (!submitAnswersDetails.includes(checkboxValue)) {
+				let separator = submitAnswersDetails.length > 0 ? selectedAnswersSeparator : '';
+				submitAnswersButton.dataset.details = submitAnswersDetails+separator+checkboxValue;
+			}
+		}
+	};
+
+	//remove deselectged checkbox values from submit data-details
+	const removeCheckboxValue = (checkboxValue, yesOrNo) => {
+		var submitAnswersButton = document.getElementById('submit-'+yesOrNo+'-answers');
+		if (submitAnswersButton.hasAttribute('data-details')) {
+			var submitAnswersDetails = submitAnswersButton.dataset.details;
+			const firstHyphenLocation = submitAnswersDetails.indexOf(selectedAnswersSeparator);
+			// if data-details contains a hyphen
+			if (firstHyphenLocation > -1) {
+				//check whether the string to remove is before, or after, the location of the first hyphen
+				if (submitAnswersDetails.indexOf(checkboxValue) < firstHyphenLocation) {
+					submitAnswersButton.dataset.details = submitAnswersDetails.replace(checkboxValue+selectedAnswersSeparator,'');
+				}
+				else {
+					submitAnswersButton.dataset.details = submitAnswersDetails.replace(selectedAnswersSeparator+checkboxValue,'');
+				}
+			}
+			//just clear everything (it's the only value in there)
+			else {
+				submitAnswersButton.dataset.details = '';
+			}
+		}
+	};		
+</script>
