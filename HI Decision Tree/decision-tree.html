@@ -1,0 +1,426 @@
+<section class="u-spacing-top-xxxsmall u-spacing-bottom-small" id="insurance-selector">
+	<div class="o-grid">
+		<div>
+			<style>
+				#insurance-selector .o-grid {
+					margin: 1.875rem;
+					background-color: #fff;
+					padding: 1rem;
+				}
+				#insurance-selector .o-grid > div {
+					max-width: 44rem;
+				}
+				#insurance-selector:not(h2) {
+					font-family: Suisse Int\'l;
+				}
+				#insurance-selector h2 {
+					font-size: 1.25rem;
+					font-weight: bold;
+				}
+				#insurance-selector h3 {
+					font-size: 1rem;
+				}
+				#insurance-selector ul {
+					display: flex;
+					flex-direction: column;
+					border: 1px solid #1f5aa5;
+					border-radius: 4px;
+				}
+				#insurance-selector li {
+					display: inline-block;
+					margin: 0;
+					padding: 4px;
+				}
+				#insurance-selector li:not(:last-child) {
+					border-bottom: 1px solid #1f5aa5;
+				}
+				#insurance-selector li::before {
+					content: '';
+				}
+				#insurance-selector input[type="radio"] {
+					position: fixed;
+					opacity: 0;
+					pointer-events: none;
+				}
+				#insurance-selector label {
+					cursor: pointer;
+					border-radius: 2px;
+					color: #434d5c;
+					text-align: center;
+					padding-top: 0.5rem;
+					padding-bottom: 0.5rem;
+					display: block;
+					transition: background-color 0.3s ease-in;
+				}
+				#insurance-selector label:hover, #insurance-selector label:focus {
+					background-color: #e9eff6;
+				}
+				#insurance-selector input[type="radio"]:checked + label {
+					background-color: #1f5aa5;
+					color: #fff;
+
+				}
+				#insurance-selector select {
+					appearance: none;
+					-webkit-appearance: none;
+					-moz-appearance: none;
+					border: 1px solid #e0dede;
+					background-color: #F2F4F5;
+					width: 100%;
+					padding: 0.75rem;
+					margin-bottom: 2rem;
+					background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cpath d='M414.8 114.4L300.2 229.5l-50 49.5-50-49.5L85.6 114.4c-10-10-22.5-14.5-35.5-14.5s-25.5 5-35.5 14.5c-19.5 19.5-19.5 51.5 0 71l200.1 200.1c21 20.5 52.5 18.5 70.5 0l200.1-200.1c19.5-19.5 19.5-51 0-70.5-19-20-51-20-70.5-.5z' fill='%231f5aa5'/%3E%3C/svg%3E%0A") no-repeat 96%;
+					background-size: 1rem 1rem;
+				}
+				#owner-accommodation, #investor-insurance, #owner-occupier-details, #renter-details, #investor-details, #owner-insurance-type .insurance {
+					display: none;
+				}
+				.show {
+					display: block !important;
+				}
+				.hide {
+					display: none !important;
+				}
+				.info-box {
+					display: none;
+					border-radius: 4px;
+					border: 1px solid #1f5aa5;
+					color: #1f5aa5;
+					background-color: #e9eff6;
+					padding: 0.75rem 0.75rem 0.75rem 3rem;
+					position: relative;
+					white-space: pre-line;
+				}
+				#renter-strata-info {
+					display: block;
+				}
+				.info-box::before {
+					content: "i";
+					border-radius: 50%;
+					background-color: #1f5aa5;
+					color: #fff;
+					width: 1.25rem;
+					height: 1.25rem;
+					position: absolute;
+					left: 0.625rem;
+					top: 0.8125rem;
+					text-align: center;
+					font-weight: bold;
+					font-size: 0.8125rem;
+					line-height: 1.7;
+				}
+				.call-us {
+					display: none;
+					color: #666a70;
+				}
+				#insurance-selector .quote-button.disabled {
+					pointer-events: none;
+					background-color: #c7c7c7;
+					color: #fff;
+					border-color: #999;
+				}
+				#insurance-selector .quote-button {
+					min-height: 44px;
+					font-size: 14px;
+					line-height: 1.3;
+				}
+				@media (min-width: 768px) {
+					#insurance-selector .o-grid {
+						margin: 1.875rem auto;
+					}
+					#insurance-selector ul {
+						flex-direction: row;
+					}
+					#insurance-selector li {
+						flex-basis: 33.333%;
+					}
+					#insurance-selector li:not(:last-child) {
+						border-right: 1px solid #1f5aa5;
+						border-bottom: none;
+					}
+				}
+			</style>
+			<div id="your-details" class="step">
+				<h2>Tell us a bit about yourself</h2>
+				
+				<h3>I am</h3>
+				<ul>
+					<li>
+						<input type="radio" id="owner-occupier" name="propertyType" value="owner-occupier" />
+						<label for="owner-occupier">Owner occupier</label>
+					</li>
+					<li>
+						<input type="radio" id="investor" name="propertyType" value="investor" />
+						<label for="investor">Landlord</label>
+					</li>
+					<li>
+						<input type="radio" id="renter" name="propertyType" value="renter" />
+						<label for="renter">Renter</label>
+					</li>
+				</ul>
+			</div>
+			<div id="owner-occupier-details">
+				<div id="owner-accommodation" class="step">
+					<h3>Living in a</h3>
+					<select id="owner-building-type">
+						<option value="">Make a selection</option>
+						<option value="free-standing">Free standing house</option>
+						<option value="semi-detached">Semi detached / terraced house</option>
+						<option value="apartment">Flat / Apartment</option>
+						<option value="townhouse">Unit / townhouse / villa / duplex</option>
+						<option value="retirement">Retirement Village Unit</option>
+					</select>
+					<p id="owner-strata-info" class="info-box">Generally these dwellings have strata insurance, which covers the building and shared property. If this applies to you, consider if you need just Contents Insurance.</p>
+				</div>
+				<div id="owner-insurance-type" class="step">
+					<div id="owner-occupier-insurance" class="insurance">
+						<h3>I'd like to insure the</h3>
+						<ul>
+							<li>
+								<input type="radio" id="owner-combined" name="insuranceType" value="combined" />
+								<label for="owner-combined">Buildings & Contents</label>
+							</li>
+							<li>
+								<input type="radio" id="owner-building" name="insuranceType" value="building" />
+								<label for="owner-building">Buildings</label>
+							</li>
+							<li>
+								<input type="radio" id="owner-contents" name="insuranceType" value="contents" />
+								<label for="owner-contents">Contents</label>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<a href="https://my.racv.com.au/s/home-insurance?p=combined" id="owner-occupier-quote" class="quote-button disabled c-btn c-btn--secondary" data-event="site interaction" data-type="button" data-location="hi-product-selector" data-description="Get a quote - owner occupier">Get a quote</a>
+			</div>
+			<div id="investor-details">
+				<div id="investor-accommodation" class="step">
+					<h3>I'd like insurance for a</h3>
+					<select id="investor-building-type">
+						<option value="">Make a selection</option>
+						<option value="free-standing">Free standing house</option>
+						<option value="semi-detached">Semi detached / terraced house</option>
+						<option value="apartment">Flat / Apartment</option>
+						<option value="townhouse">Unit / townhouse / villa / duplex</option>
+					</select>
+					<p id="investor-strata-info" class="info-box">Generally these dwellings have strata insurance, which covers the building and shared property. If this applies to you, consider if you need just Landlord Contents Insurance.</p>
+					<p id="investor-strata-contents-info" class="call-us">If you're looking for building insurance for an entire block of flats or apartments, please give us a call.</p>
+				</div>
+				<div id="investor-insurance-type" class="step">
+					<div id="investor-insurance" class="insurance">
+						<h3>I'd like to cover the</h3>
+						<ul>
+							<li>
+								<input type="radio" id="investor-combined" name="investor-insuranceType" value="landlord" />
+								<label for="investor-combined">Buildings & Contents</label>
+							</li>
+							<li>
+								<input type="radio" id="investor-building" name="investor-insuranceType" value="landlordbuilding" />
+								<label for="investor-building">Buildings</label>
+							</li>
+							<li>
+								<input type="radio" id="investor-contents" name="investor-insuranceType" value="landlordcontents" />
+								<label for="investor-contents">Contents</label>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<a href="https://my.racv.com.au/s/home-insurance?p=landlord" id="investor-quote" class="quote-button disabled c-btn c-btn--secondary" data-event="site interaction" data-type="button" data-location="hi-product-selector" data-description="Get a quote - investor">Get a quote</a>
+			</div>
+			<div id="renter-details">
+				<p id="renter-strata-info" class="info-box">You're eligible for Renter's Insurance.<br>This will cover your personal belongings against loss or damage.</p>
+				<div id="renter-insurance" class="insurance">
+					<a href="https://my.racv.com.au/s/home-insurance?p=renters" id="renter-quote" class="quote-button c-btn c-btn--secondary" data-event="site interaction" data-type="button" data-location="hi-product-selector" data-description="Get a quote - renter">Get a quote</a>
+				</div>
+			</div>
+			<script>
+				const radioOwnerType = document.querySelectorAll('#your-details input[type="radio"]');
+				
+				//Owner Occupier flow
+				const radioOwnerInsuranceType = document.querySelectorAll('#owner-occupier-insurance input[type="radio"]');
+				const ownerOccupierDetails = document.getElementById('owner-occupier-details');
+				const ownerAccommodationType = document.getElementById('owner-accommodation');
+
+				const investorDetails = document.getElementById('investor-details');
+				const investorAccommodationType = document.getElementById('investor-accommodation');
+
+				const renterDetails = document.getElementById('renter-details');
+
+				const ownerBuildingType = document.getElementById('owner-building-type');
+				const ownerStrataInfo = document.getElementById('owner-strata-info');
+				const ownerStrataText = ownerStrataInfo.textContent;
+				const ownerStrataContentsText = 'Generally, flats and apartments have strata insurance, which already covers the building and shared property. Because of this, we can only offer you Contents Insurance.';
+
+				const ownerOccupierInsurance = document.getElementById('owner-occupier-insurance');
+				const ownerOccupierQuoteButton = document.getElementById('owner-occupier-quote');
+				const ownerOccupierQuoteLink = 'https://my.racv.com.au/s/home-insurance?p=';
+				const ownerRadioButtons = document.getElementsByName("insuranceType");
+
+				const investorBuildingType = document.getElementById('investor-building-type');
+
+				const renterQuoteButton = document.getElementById('renter-quote');
+
+				function checkIfElementVisible(elementToCheck) {
+					var element = elementToCheck;
+					var position = element.getBoundingClientRect();
+
+					// detecting if element is fully visible
+					if(position.top >= 0 && position.bottom <= window.innerHeight) {
+						return true;
+					}
+				}
+
+				function showHideQuoteButton(buttonShow, buttonElement, buttonLink, buttonDataset) {
+					buttonElement.href = buttonLink;
+
+					if (buttonShow) {
+						buttonElement.dataset.description = buttonDataset;
+						buttonElement.classList.remove('disabled');
+						if (!checkIfElementVisible(buttonElement)) {
+							buttonElement.scrollIntoView({behavior: "smooth", block: "end"});
+						}
+					}
+					else {
+						buttonElement.classList.add('disabled');
+					}
+				}
+				
+				//Show/hide based on your details answer radio value
+				for (var i = 0; i < radioOwnerType.length; i++) {
+					radioOwnerType[i].addEventListener('change', function() {
+						if (this.value == 'owner-occupier') {
+							ownerOccupierDetails.classList.add('show');
+							ownerAccommodationType.classList.add('show');
+							investorDetails.classList.remove('show');
+							investorAccommodationType.classList.remove('show');
+							renterDetails.classList.remove('show');
+							if (!checkIfElementVisible(ownerBuildingType)) {
+								ownerBuildingType.scrollIntoView({behavior: "smooth", block: "end"});
+							}
+						}
+						else if (this.value == 'investor') {
+							ownerOccupierDetails.classList.remove('show');
+							ownerAccommodationType.classList.remove('show');
+							investorDetails.classList.add('show');
+							investorAccommodationType.classList.add('show');
+							renterDetails.classList.remove('show');
+							if (!checkIfElementVisible(investorBuildingType)) {
+								investorBuildingType.scrollIntoView({behavior: "smooth", block: "end"});
+							}
+						}
+						else {
+							ownerOccupierDetails.classList.remove('show');
+							ownerAccommodationType.classList.remove('show');
+							investorDetails.classList.remove('show');
+							investorAccommodationType.classList.remove('show');
+							renterDetails.classList.add('show');
+							if (!checkIfElementVisible(renterQuoteButton)) {
+								renterQuoteButton.scrollIntoView({behavior: "smooth", block: "end"});
+							}
+						}
+					});
+				}
+
+				//Change Get a quote href based on your details answer radio value
+				for (var i = 0; i < radioOwnerInsuranceType.length; i++) {
+					radioOwnerInsuranceType[i].addEventListener('change', function() {
+						showHideQuoteButton(true, ownerOccupierQuoteButton, ownerOccupierQuoteLink + this.value, ownerOccupierQuoteButton.textContent + ' - ' + this.value);
+					});
+				}
+
+				//Show/hide based on residence type dropdown value
+				ownerBuildingType.addEventListener('change', function() {
+					if (this.value == 'apartment') {
+						ownerStrataInfo.textContent = ownerStrataContentsText;
+						ownerStrataInfo.classList.add('show');
+						ownerOccupierInsurance.classList.add('hide');
+						showHideQuoteButton(true, ownerOccupierQuoteButton, ownerOccupierQuoteLink + 'contents', ownerOccupierQuoteButton.textContent + ' - ' + 'contents');
+					}
+					else {
+						if (this.value != ownerStrataText) {
+							ownerStrataInfo.textContent = ownerStrataText;
+						}
+						ownerOccupierInsurance.classList.remove('hide');
+						for (var i=0;i<ownerRadioButtons.length;i++) {
+							ownerRadioButtons[i].checked = false;
+						}							
+						showHideQuoteButton(false, ownerOccupierQuoteButton, ownerOccupierQuoteLink);
+						if (this.value == 'free-standing' || this.value == '') {
+							ownerStrataInfo.classList.remove('show');
+						}
+						else {
+							ownerStrataInfo.classList.add('show');
+						}
+					}
+
+					if (this.value == '') {
+						for (var i=0;i<ownerRadioButtons.length;i++) {
+							ownerRadioButtons[i].checked = false;
+						}
+						showHideQuoteButton(false, ownerOccupierQuoteButton, ownerOccupierQuoteLink);
+						ownerOccupierInsurance.classList.remove('show');
+					}
+					else {
+						ownerOccupierInsurance.classList.add('show');
+					}
+				})
+
+				//Investor flow
+				const radioInvestorInsuranceType = document.querySelectorAll('#investor-insurance input[type="radio"]');
+				const investorStrataInfo = document.getElementById('investor-strata-info');
+				const investorStrataText = investorStrataInfo.textContent;
+				const investorStrataContentsText = 'Generally, flats and apartments have strata insurance, which already covers the building and shared property. Because of this, we can only offer you Landlord Contents Insurance.';
+				const investorCallUs = document.getElementById('investor-strata-contents-info');
+				const investorInsurance = document.getElementById('investor-insurance');
+				const investorQuoteButton = document.getElementById('investor-quote');
+				const investorRadioButtons = document.getElementsByName("investor-insuranceType");
+				
+				//Change Get a quote href based on your details answer radio value
+				for (var i = 0; i < radioInvestorInsuranceType.length; i++) {
+					radioInvestorInsuranceType[i].addEventListener('change', function() {
+						showHideQuoteButton(true, investorQuoteButton, ownerOccupierQuoteLink + this.value, investorQuoteButton.textContent + ' - ' + this.value);
+					});
+				}
+
+				//Show/hide based on residence type dropdown value
+				investorBuildingType.addEventListener('change', function() {
+					if (this.value == 'apartment') {
+						investorStrataInfo.textContent = investorStrataContentsText;
+						investorStrataInfo.classList.add('show');
+						investorInsurance.classList.add('hide');
+						investorCallUs.classList.add('show');
+						showHideQuoteButton(true, investorQuoteButton, ownerOccupierQuoteLink + 'landlordcontents', investorQuoteButton.textContent + ' - ' + 'landlordcontents');
+					}
+					else {
+						if (this.value != investorStrataText) {
+							investorStrataInfo.textContent = investorStrataText;
+						}
+						investorInsurance.classList.remove('hide');
+						investorCallUs.classList.remove('show');
+						for (var i=0;i<investorRadioButtons.length;i++) {
+							investorRadioButtons[i].checked = false;
+						}							
+						showHideQuoteButton(false, investorQuoteButton, ownerOccupierQuoteLink);
+						if (this.value == 'free-standing' || this.value == '') {
+							investorStrataInfo.classList.remove('show');
+						}
+						else {
+							investorStrataInfo.classList.add('show');
+						}
+					}
+
+					if (this.value == '') {
+						for (var i=0;i<investorRadioButtons.length;i++) {
+							investorRadioButtons[i].checked = false;
+						}
+						showHideQuoteButton(false, investorQuoteButton, ownerOccupierQuoteLink);
+						investorInsurance.classList.remove('show');
+					}
+					else {
+						investorInsurance.classList.add('show');
+					}
+				})
+			</script>
+		</div>
+	</div>
+</section>
